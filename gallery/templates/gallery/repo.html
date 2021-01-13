@@ -1,0 +1,15 @@
+{% extends 'gallery/main.html' %}
+{% load static %}
+{% block content %}
+	<div class="row">
+		{% for item in items %}
+		<div class="col-lg-4">
+			<img class="thumbnail" src="{{item.product.imageURL}}">
+			<div class="box-element product" style="display: flex; align-items: center;">
+				<label class="col-8"><strong>{{item.product.name}}</strong></label>
+				<a class="btn btn-warning" style="float:right;" data-href="{{item.product.imageURL}}" download>Download</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock content%}
