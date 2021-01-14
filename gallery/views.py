@@ -6,67 +6,51 @@ import requests
 import urllib.request
 
 from .models import *
+from .utils import cookieCart, cartData
 
 # Create your views here.
 
 
 def store(request):
 
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-	else:
-		items = []
-		order = {'get_cart_total':0, 'get_cart_items': 0}
-		cartItems = order['get_cart_items']
+	# if request.user.is_authenticated:
+	# 	customer = request.user.customer
+	# 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	# 	items = order.orderitem_set.all()
+	# 	cartItems = order.get_cart_items
+	# else:
+	# 	items = []
+	# 	order = {'get_cart_total':0, 'get_cart_items': 0}
+	# 	cartItems = order['get_cart_items']
 
 	products = Product.objects.all()
+
+	data = cartData(request)
+	cartItems = data['cartItems']
+
 	context = {'products':products, 'cartItems':cartItems}
 	return render(request, 'gallery/store.html', context)
 
 def cart(request):
 
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-	else:
-		items = []
-		order = {'get_cart_total':0, 'get_cart_items': 0}
-		cartItems = order['get_cart_items']
-
-	context = {'items':items, 'order':order, 'cartItems':cartItems}
+	context = cartData(request)
 	return render(request, 'gallery/cart.html', context)
 
 def checkout(request):
 
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-	else:
-		items = []
-		order = {'get_cart_total':0, 'get_cart_items': 0}
-		cartItems = order['get_cart_items']
-
-	context = {'items':items, 'order':order, 'cartItems':cartItems}
+	context = cartData(request)
 	return render(request, 'gallery/checkout.html', context)
 
 def repo(request):
 
+	data = cartData(request)
+	cartItems = data['cartItems']
+
 	if request.user.is_authenticated:
 		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
 		items = customer.owneditem_set.all()
-		cartItems = order.get_cart_items
 	else:
 		items = []
-		order = {'get_cart_total':0, 'get_cart_items': 0}
-		cartItems = order['get_cart_items']
 
 	context = {'items':items, 'cartItems':cartItems}
 	return render(request, 'gallery/repo.html', context)

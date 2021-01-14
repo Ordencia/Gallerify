@@ -32,7 +32,7 @@
 				<div class="cart-row">
 					<div style="flex: 2"><img class="row-image" src="{{item.product.sampleImageURL}}"></div>
 					<div style="flex: 3">{{item.product.name}}</div>
-					<div style="flex: 1"><strong>{{item.product.price|floatformat:2}}</strong></div>
+					<div style="flex: 1"><strong>${{item.product.price|floatformat:2}}</strong></div>
 					<div style="flex: 1"><button data-product={{item.product.id}} data-action="remove" class="btn btn-warning update-cart">Remove</button></div>
 				</div>
 				{% endfor %}
