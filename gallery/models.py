@@ -67,7 +67,7 @@ class Order(models.Model):
 	@property
 	def get_added_items(self):
 		addeditems = list(self.orderitem_set.values('product_id'))
-		print(addeditems)
+		print('added items:', addeditems)
 		return addeditems
 
 class OrderItem(models.Model):

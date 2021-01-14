@@ -3,10 +3,11 @@ from django.http import JsonResponse
 import json
 import datetime
 import requests
-import urllib.request
+import webbrowser
+from decimal import Decimal
 
 from .models import *
-from .utils import cookieCart, cartData
+from .utils import *
 
 # Create your views here.
 
@@ -84,31 +85,23 @@ def processOrder(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		total = float(data['form']['total'])
-		order.transaction_id = transaction_id
-
-		if total == order.get_cart_total:
-			order.complete = True
-
-		order.save()
-
-		for item in items:
-			# print('printing item: ', item)
-			# ownedItem, created = OwnedItem.objects.get_or_create(customer=customer, product=Product.objects.get(pk=item['product_id']))
-			# ownedItem.save()
-			product = Product.objects.get(pk=item['product_id'])
-			url = "http://" + prefix + product.imageURL
-			print(url)
-			r = requests.get(url)
-			with open('image_download.png', 'wb') as f:
-				f.write(r.content)
 
 	else:
-		print('User is not logged in')
+		customer, order = guestOrder(request, data)
 
-		for item in items:
-			product = Product.objects.get(pk=item['product_id'])
-			r = requests.get(product.imageURL, allow_redirects=True)
-			open('image_download', 'wb').write(r.content)
+	total = Decimal(data['form']['total'])
+
+	order.transaction_id = transaction_id
+
+	if total == order.get_cart_total:
+		order.complete = True
+
+		if request.user.is_authenticated:
+			for item in items:
+				ownedItem, created = OwnedItem.objects.get_or_create(customer=customer, product=Product.objects.get(pk=item['product_id']))
+				ownedItem.save()
+
+
+	order.save()
 
 	return JsonResponse('Payment complete', safe=False)
