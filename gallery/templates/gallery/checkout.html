@@ -1,8 +1,7 @@
 {% extends 'gallery/main.html' %}
 {% load static %}
 {% block content %}
-	<div class="row">
-		<div class="col-lg-6">
+		<div>
 			<div class="box-element">
 				<a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
 				<hr>
@@ -16,12 +15,14 @@
 					<div style="flex:1"><p>x1</p></div>
 				</div>
 				{% endfor %}
-				<h5>Items:   {{order.get_cart_items}}</h5>
-				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+				<div style="text-align: right">
+					<h5>Items:   {{order.get_cart_items}}</h5>
+					<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>	
+				</div>
 			</div>
 		</div>
 
-		<div class="col-lg-6">
+		<div>
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
 					{% csrf_token %}
@@ -40,16 +41,13 @@
 			</div>
 			<br>
 
-			<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options</small>
-				<div id="paypal-button-container"></div>
+			<div class="box-element hidden" id="payment-info" >
+				<div id="paypal-button-container" style="display: flex; align-content: center; align-items: center; flex-direction: column"></div>
 				<!-- <button id="make-payment">Make Payment</button> -->
 
 			</div>
 
 		</div>
-
-	</div>
 
 	<script src="https://www.paypal.com/sdk/js?client-id=AaKHM1fap55mH6bSbun3HWY7dcDvhtwTgBPpCgI_NtteE6yx8ECWr2g_V29mW9r1dyBr3fCQKpmulDy7&currency=CAD&disable-funding=credit">
 	</script>

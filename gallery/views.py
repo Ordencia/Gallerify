@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 import json
 import datetime
 import requests
@@ -26,6 +27,7 @@ def store(request):
 
 	products = Product.objects.all().order_by('name')
 
+
 	data = cartData(request)
 	cartItems = data['cartItems']
 
@@ -37,11 +39,13 @@ def cart(request):
 	context = cartData(request)
 	return render(request, 'gallery/cart.html', context)
 
+@login_required
 def checkout(request):
 
 	context = cartData(request)
 	return render(request, 'gallery/checkout.html', context)
 
+@login_required
 def repo(request):
 
 	data = cartData(request)
@@ -60,9 +64,6 @@ def updateItem(request):
 	data = json.loads(request.body)
 	productId = data['productId']
 	action = data['action']
-
-	print('Action:', action)
-	print('productId:', productId)
 
 	customer = request.user.customer
 	product = Product.objects.get(id=productId)

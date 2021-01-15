@@ -7,6 +7,32 @@ h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
 }
 
+.navbar-brand {
+	font-family: "papyrus";
+	font-size: 25px;
+}
+
+.nav-link {
+	font-size: 15px;
+}
+
+.navbar-text {
+	padding-right: 10px;
+}
+
+.content-section {
+  background: #f6f6f2;
+  padding: 10px 20px;
+  border: 1px solid #ffffff00;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.form-text {
+	color: #6fb3b8;
+}
+
 .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;

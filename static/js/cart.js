@@ -7,11 +7,13 @@ for(var i = 0; i < updateBtns.length; ++i) {
 		console.log('productId: ', productId, 'action: ', action)
 
 		console.log('user: ', user)
-		if (user == 'AnonymousUser') {
-			addCookieItem(productId, action)
-		} else {
+		
+		if (user != 'AnonymousUser') {
 			updateUserOrder(productId, action)
+		} else {
+			addCookieItem(productId, action)
 		}
+		
 	})
 }
 

@@ -7,7 +7,6 @@ def cookieCart(request):
 	except:
 		cart = {}
 
-	print('hello Cart: ', cart)
 	items = []
 	order = {'get_cart_total':0, 'get_cart_items': 0}
 	cartItems = order['get_cart_items']
@@ -40,10 +39,27 @@ def cookieCart(request):
 
 def cartData(request):
 	if request.user.is_authenticated:
-		customer = request.user.customer
+		customer, created = Customer.objects.get_or_create(user=request.user)
+		customer.name = request.user.username
+		customer.email = request.user.email
+		customer.save()
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
+
+		cookieData = cookieCart(request)
+		if cookieData['cartItems'] != 0:
+			cookieItems = cookieData['items']
+			items = []
+			cartItems = cookieData['cartItems']
+
+			for item in cookieItems:
+				product = Product.objects.get(pk=item['product']['id'])
+				orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+				orderItem.save()
+				items.append(item)
+
+		else:
+			items = order.orderitem_set.all()
+			cartItems = order.get_cart_items
 	else:
 		cookieData = cookieCart(request)
 		cartItems = cookieData['cartItems']
@@ -51,8 +67,6 @@ def cartData(request):
 		items = cookieData['items']
 
 	return {'items': items, 'order': order, 'cartItems': cartItems}
-
-
 
 
 def guestOrder(request, data):
