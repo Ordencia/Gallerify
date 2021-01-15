@@ -76,7 +76,7 @@
 	    </ul>
 	    <div class="form-inline my-2 my-lg-0">
 	    	{% if user.is_authenticated %}
-				<span class="navbar-text" style="color: #f0ad4e">Hi, {{user}}</span>
+				<span class="navbar-text">Hi, {{user}}</span>
 				<a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
         	{% else %}
 	          	<a href="{% url 'login' %}"class="btn btn-warning">Login</a>
