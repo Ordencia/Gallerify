@@ -17,23 +17,31 @@ for(var i = 0; i < updateBtns.length; ++i) {
 	})
 }
 
-function addCookieItem(productId, action) {
-	console.log("hello")
+function updateCart(productId, action) {
+	var cart_num = parseInt(document.getElementById('cart-total').innerHTML, 10)
+
 	if (action == 'add') {
-		if(cart[productId] == undefined) {
+		if (cart[productId] == undefined) {
 			cart[productId] = 1
+			cart_num += 1
 		}
 	}
 
 	if (action == 'remove') {
 		if (cart[productId]) {
 			delete cart[productId]
+			cart_num -= 1
 		}
+		document.getElementById(productId).classList.add('hidden')
 	}
 
-	console.log('Cart: ', cart)
+	document.getElementById('cart-total').innerHTML=cart_num.toString()
+}
+
+function addCookieItem(productId, action) {
+	updateCart(productId, action)
+
 	document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
-	location.reload()
 }
 
 function updateUserOrder(productId, action) {
@@ -56,6 +64,7 @@ function updateUserOrder(productId, action) {
 
 	.then((data) => {
 		console.log('data: ', data)
-		location.reload()
+		
+		updateCart(productId, action)
 	})
 }
