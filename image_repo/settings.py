@@ -89,7 +89,7 @@ else:
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gallery',
         'USER': 'gallery_admin',
-        'PASSWORD': 'ordencia9ddw',
+        'PASSWORD': 'admin123',
         'HOST': 'localhost',
         'PORT': '',
     }
