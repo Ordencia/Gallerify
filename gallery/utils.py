@@ -44,7 +44,9 @@ def cartData(request):
 		customer.email = request.user.email
 		customer.save()
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		
 		cookieData = cookieCart(request)
 		if cookieData['cartItems'] != 0:
 			cookieItems = cookieData['items']
@@ -56,7 +58,7 @@ def cartData(request):
 				orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 				orderItem.save()
 				items.append(item)
-				
+
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 	else:

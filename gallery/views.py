@@ -94,6 +94,8 @@ def processOrder(request):
 
 	order.transaction_id = transaction_id
 
+	print('total:', total)
+	print('cart:', order.get_cart_total)
 	if total == order.get_cart_total:
 		order.complete = True
 

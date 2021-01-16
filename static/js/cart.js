@@ -29,16 +29,15 @@ function updateCart(productId, action) {
 
 	if (action == 'remove') {
 		var cart_total = parseFloat(document.getElementsByClassName('cart-data')[1].innerHTML.substring(1))
+		var price = parseFloat(document.getElementById(productId).getElementsByTagName('strong')[0].innerHTML.substring(1))
 		if (cart[productId]) {
-			price = parseFloat(document.getElementById(productId).getElementsByTagName('strong')[0].innerHTML.substring(1))
 			cart_total -= price
 			cart_num -= 1
 			delete cart[productId]
-
-			document.getElementById(productId).classList.add('hidden')
-			document.getElementsByClassName('cart-data')[0].innerHTML=cart_num.toString()
-			document.getElementsByClassName('cart-data')[1].innerHTML="$"+cart_total.toFixed(2).toString()
 		}
+		document.getElementById(productId).classList.add('hidden')
+		document.getElementsByClassName('cart-data')[0].innerHTML=cart_num.toString()
+		document.getElementsByClassName('cart-data')[1].innerHTML="$"+cart_total.toFixed(2).toString()
 	}
 
 	document.getElementById('cart-total').innerHTML=cart_num.toString()
@@ -47,7 +46,8 @@ function updateCart(productId, action) {
 function addCookieItem(productId, action) {
 	updateCart(productId, action)
 
-	document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+	if (user == 'AnonymousUser' || action == 'remove')
+		document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 }
 
 function updateUserOrder(productId, action) {

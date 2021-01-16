@@ -84,7 +84,7 @@
 	<script type="text/javascript">
 		var total = '{{order.get_cart_total}}'
 
-		var added_items = [] 
+		var added_items = {{order.get_added_items|safe}}
 
 		// if (user != 'AnonymousUser'){
 		// 	added_items = {{order.get_added_items|safe}}
