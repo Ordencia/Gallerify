@@ -45,7 +45,7 @@ Make a payment with paypal
 After the success alert, you will get directed to your new repo
 ![](readme_files/repo.png)
 
-You can download your images with watermarked removed from the repo now, enjoy!
+You can download your images with watermarks removed from the repo now, enjoy!
 ![](readme_files/download.png)
 
 ## Thank you for shopping with Gallerify
