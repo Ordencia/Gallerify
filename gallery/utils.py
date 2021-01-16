@@ -56,8 +56,7 @@ def cartData(request):
 				orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 				orderItem.save()
 				items.append(item)
-
-		else:
+				
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 	else:

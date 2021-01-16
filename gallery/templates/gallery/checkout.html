@@ -23,7 +23,7 @@
 		</div>
 
 		<div>
-			<div class="box-element" id="form-wrapper">
+			<div class="box-element hidden" id="form-wrapper">
 				<form id="form">
 					{% csrf_token %}
 					<div id="user-info">
@@ -41,7 +41,7 @@
 			</div>
 			<br>
 
-			<div class="box-element hidden" id="payment-info" >
+			<div class="box-element" id="payment-info" >
 				<div id="paypal-button-container" style="display: flex; align-content: center; align-items: center; flex-direction: column"></div>
 				<!-- <button id="make-payment">Make Payment</button> -->
 
@@ -86,12 +86,12 @@
 
 		var added_items = [] 
 
-		if (user != 'AnonymousUser'){
-			added_items = {{order.get_added_items|safe}}
-			document.getElementById('user-info').innerHTML=''
-			document.getElementById('form-wrapper').classList.add('hidden')
-			document.getElementById('payment-info').classList.remove('hidden')
-		}
+		// if (user != 'AnonymousUser'){
+		// 	added_items = {{order.get_added_items|safe}}
+		// 	document.getElementById('user-info').innerHTML=''
+		// 	document.getElementById('form-wrapper').classList.add('hidden')
+		// 	document.getElementById('payment-info').classList.remove('hidden')
+		// }
 
 		var form = document.getElementById('form')
 

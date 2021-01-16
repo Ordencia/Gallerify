@@ -28,11 +28,17 @@ function updateCart(productId, action) {
 	}
 
 	if (action == 'remove') {
+		var cart_total = parseFloat(document.getElementsByClassName('cart-data')[1].innerHTML.substring(1))
 		if (cart[productId]) {
-			delete cart[productId]
+			price = parseFloat(document.getElementById(productId).getElementsByTagName('strong')[0].innerHTML.substring(1))
+			cart_total -= price
 			cart_num -= 1
+			delete cart[productId]
+
+			document.getElementById(productId).classList.add('hidden')
+			document.getElementsByClassName('cart-data')[0].innerHTML=cart_num.toString()
+			document.getElementsByClassName('cart-data')[1].innerHTML="$"+cart_total.toFixed(2).toString()
 		}
-		document.getElementById(productId).classList.add('hidden')
 	}
 
 	document.getElementById('cart-total').innerHTML=cart_num.toString()
@@ -65,6 +71,6 @@ function updateUserOrder(productId, action) {
 	.then((data) => {
 		console.log('data: ', data)
 		
-		updateCart(productId, action)
+		addCookieItem(productId, action)
 	})
 }
