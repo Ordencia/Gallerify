@@ -43,6 +43,7 @@ Make a payment with paypal
 ![](readme_files/payment.png)
 
 After the success alert, you will get directed to your new repo
+![](readme_files/confirmation.png)
 ![](readme_files/repo.png)
 
 You can download your images with watermarks removed from the repo now, enjoy!
